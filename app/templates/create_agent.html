@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-3xl mx-auto p-8">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-10">Create New Agent</h1>
+
+        <form id="createAgentForm" class="bg-white p-8 rounded-xl shadow-lg space-y-6">
+            <div>
+                <label for="agent_name" class="block text-sm font-medium text-gray-700 mb-1">Agent Name</label>
+                <input type="text" id="agent_name" name="agent_name" required
+                    class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="e.g. Customer Support Bot">
+            </div>
+
+            <div>
+                <label for="system_prompt" class="block text-sm font-medium text-gray-700 mb-1">System Prompt / Job Description</label>
+                <textarea id="system_prompt" name="system_prompt" rows="5" required
+                    class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="Define the agent's role, objectives, and any specific instructions. This will guide its behavior."></textarea>
+            </div>
+            
+            <!-- We will ignore the file upload for now to keep it simple -->
+
+            <div class="flex justify-center pt-4">
+                <button type="submit"
+                    class="bg-gray-800 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 transition-colors duration-300">
+                    Save Agent
+                </button>
+            </div>
+        </form>
+        <div id="form-message" class="text-center mt-4"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/create_agent.js') }}"></script>
+</body>
+</html>
