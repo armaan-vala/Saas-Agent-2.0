@@ -1,12 +1,11 @@
 from flask import render_template
-from app.models import Agent
 from app.main import main
+from app.models import Agent
 
 @main.route('/')
 def index():
     return render_template('index.html')
 
-# Give this function a unique name
 @main.route('/create')
 def create_agent_page():
     return render_template('create_agent.html')

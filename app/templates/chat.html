@@ -5,51 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat with {{ agent.agent_name }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <div class="chat-container">
-        <!-- Header -->
+    <div class="chat-container" data-agent-id="{{ agent.id }}">
+        <div id="uploadNotification" class="upload-notification"></div>
+        
         <header class="chat-header">
             <div class="flex items-center gap-3">
                 <a href="/" class="text-gray-500 hover:text-gray-800">&larr; Back</a>
                 <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    {{ agent.agent_name[0] | upper }}
+                    {{ agent.agent_name[0] }}
                 </div>
                 <h1 class="text-xl font-bold text-gray-800">{{ agent.agent_name }}</h1>
             </div>
             <div>
-                <!-- We will add the Knowledge Base and Upload buttons later -->
-            </div>
+                </div>
         </header>
 
-        <!-- Message Area -->
         <main id="messageArea" class="message-area">
-            <!-- Initial message from the agent -->
             <div class="message received">
-                <p>Hello! I am the {{ agent.agent_name }}. How can I help you today?</p>
+                <p>Hello! I am the {{ agent.agent_name }}. I am ready to answer questions based on the documents you've provided, or you can upload new documents using the '+' button.</p>
             </div>
         </main>
 
-        <!-- Input Form -->
         <footer class="chat-footer">
-            <form id="chatForm" class="flex items-center gap-2">
-                <!-- THIS IS THE NEW HIDDEN INPUT -->
-                <input type="hidden" id="systemPrompt" value="{{ agent.system_prompt }}">
+            <input type="file" id="documentUploadInput" multiple hidden>
+
+            <form id="chatForm" class="flex items-center gap-3">
+                <div class="chat-input-wrapper">
+                    <button type="button" id="uploadBtn" class="plus-button" title="Upload new documents">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <input type="text" id="userInput" placeholder="Ask anything..." autocomplete="off" required>
+                </div>
                 
-                <input type="text" id="userInput" placeholder="Ask a question..." autocomplete="off" required>
-                <button type="submit" id="submitButton">
-                    <svg xmlns="http://www.w.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <button type="submit" class="send-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                         <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
                     </svg>
                 </button>
             </form>
         </footer>
     </div>
-
-    <!-- ADD THE SCRIPT TAG AT THE BOTTOM -->
+    
     <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
 </html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with {{ agent.agent_name }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="chat-container" data-agent-id="{{ agent.id }}">
+        <header class="chat-header">
+            <div class="flex items-center gap-3">
+                <a href="/" class="text-gray-500 hover:text-gray-800">&larr; Back</a>
+                <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    {{ agent.agent_name[0] }}
+                </div>
+                <h1 class="text-xl font-bold text-gray-800">{{ agent.agent_name }}</h1>
+            </div>
+            <div>
+                </div>
+        </header>
+
+        <main id="messageArea" class="message-area">
+            <div class="message received">
+                <p>Hello! I am the {{ agent.agent_name }}. How can I help you today?</p>
+            </div>
+        </main>
+
+        <footer class="chat-footer">
+            <form id="chatForm" class="flex items-center gap-3">
+                <div class="chat-input-wrapper">
+                    <button type="button" id="uploadBtn" class="plus-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <input type="text" id="userInput" placeholder="Ask anything..." autocomplete="off" required>
+                </div>
+                
+                <button type="submit" class="send-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                    </svg>
+                </button>
+            </form>
+        </footer>
+        </div>
+    
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html> -->
+

@@ -3,3 +3,11 @@ Flask-SQLAlchemy
 Flask-Migrate
 python-dotenv
 groq
+celery
+redis
+langchain
+langchain-groq
+langchain-community
+faiss-cpu
+sentence-transformers
+pypdf

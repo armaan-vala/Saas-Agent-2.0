@@ -8,7 +8,29 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative; /* Notification ke liye zaroori */
 }
+/* --- NAYI: Notification Styling --- */
+.upload-notification {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 10;
+}
+.upload-notification.show {
+    transform: translateY(0);
+}
+.upload-notification.info { background-color: #3B82F6; } /* blue-500 */
+.upload-notification.success { background-color: #22C55E; } /* green-500 */
+.upload-notification.error { background-color: #EF4444; } /* red-500 */
+
 .chat-header {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #e5e7eb;
@@ -32,7 +54,7 @@
 }
 .message.received {
     background-color: #f3f4f6;
-    color: #1f2937;
+    color: #1f2335;
     align-self: flex-start;
     border-bottom-left-radius: 0.25rem;
 }
@@ -46,22 +68,36 @@
     padding: 1rem 1.5rem;
     border-top: 1px solid #e5e7eb;
 }
-#chatForm {
-    width: 100%;
-}
-#userInput {
+#chatForm { width: 100%; }
+.chat-input-wrapper {
     flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     border: 1px solid #d1d5db;
     border-radius: 9999px;
-    padding: 0.75rem 1.25rem;
-    font-size: 1rem;
-    outline: none;
+    padding: 0.25rem 0.25rem 0.25rem 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
-#userInput:focus {
+.chat-input-wrapper:focus-within {
     border-color: #4f46e5;
     box-shadow: 0 0 0 2px #c7d2fe;
 }
-#chatForm button {
+.plus-button {
+    color: #6b7280;
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+.plus-button:hover { color: #4f46e5; }
+#userInput {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    outline: none;
+}
+.send-button {
     background-color: #4f46e5;
     color: white;
     border-radius: 9999px;
@@ -71,7 +107,16 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s;
+    flex-shrink: 0;
 }
-#chatForm button:hover {
-    background-color: #4338ca;
-}
+.send-button:hover { background-color: #4338ca; }
+
+/* Markdown Styles */
+.message.received p { all: unset; }
+.message.received p strong, .message.received p b { font-weight: 700; }
+.message.received p em, .message.received p i { font-style: italic; }
+.message.received p ul, .message.received p ol { margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 1.5rem; }
+.message.received p ul { list-style-type: disc; }
+.message.received p ol { list-style-type: decimal; }
+.message.received p li { margin-bottom: 0.25rem; }
+.message.received p code { background-color: #e5e7eb; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.875rem; }

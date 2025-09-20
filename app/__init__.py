@@ -1,39 +1,61 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate  # <-- ADD THIS LINE
 from config import Config
-
-# Initialize extensions
-db = SQLAlchemy()
-migrate = Migrate() # <-- AND ADD THIS LINE
+from app.extensions import db, migrate
 
 def create_app(config_class=Config):
-    """
-    Creates and configures the Flask application.
-    This is the application factory pattern.
-    """
     app = Flask(__name__)
     app.config.from_object(config_class)
 
-    # Initialize extensions with the app
+    # Initialize Flask extensions
     db.init_app(app)
-    migrate.init_app(app, db) # <-- AND ADD THIS LINE
+    migrate.init_app(app, db)
 
-    # Register blueprints
-    from app.main.routes import main as main_blueprint
+    # --- THIS IS THE CRITICAL SECTION ---
+    # Register all the blueprints with the app
+    from app.main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-
+    
     from app.agents import agents_bp
     app.register_blueprint(agents_bp)
 
     from app.chat import chat_bp
     app.register_blueprint(chat_bp)
 
-    # A simple route to test the app is running
-    @app.route('/test')
-    def test_page():
-        return "<h1>It's alive! The Flask application is running.</h1>"
+    from app.documents import documents_bp
+    app.register_blueprint(documents_bp)
+    # ------------------------------------
 
     return app
 
 from app import models
+
+
+
+# from flask import Flask
+# from config import Config
+# from app.extensions import db, migrate
+
+# def create_app(config_class=Config):
+#     app = Flask(__name__)
+#     app.config.from_object(config_class)
+
+#     # Initialize Flask extensions
+#     db.init_app(app)
+#     migrate.init_app(app, db)
+
+#     # Register blueprints
+#     from app.main import main as main_blueprint
+#     app.register_blueprint(main_blueprint)
+    
+#     from app.agents import agents_bp
+#     app.register_blueprint(agents_bp)
+
+#     from app.chat import chat_bp
+#     app.register_blueprint(chat_bp)
+
+#     from app.documents import documents_bp
+#     app.register_blueprint(documents_bp)
+
+#     return app
+
+# from app import models

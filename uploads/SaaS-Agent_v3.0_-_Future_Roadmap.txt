@@ -1,0 +1,11 @@
+SaaS-Agent v3.0 - Future Roadmap
+
+This document outlines the planned features for the next major version of the platform.
+
+Key Planned Features:
+
+PDF and DOCX Support: The document processing pipeline will be upgraded to natively handle PDF and Microsoft Word documents, in addition to the existing text file support.
+
+Real-time Status Dashboard: A new dashboard view will be implemented to show the live processing status of each uploaded document (e.g., "Chunking", "Embedding", "Complete").
+
+Multi-Language Support: The RAG pipeline will be enhanced to support queries and documents in multiple languages, starting with Hindi and Spanish.

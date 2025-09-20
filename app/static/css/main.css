@@ -52,3 +52,17 @@ body {
     display: flex;
     justify-content: flex-end;
 }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.delete-btn {
+    color: #9CA3AF;
+    transition: color 0.2s;
+}
+.delete-btn:hover {
+    color: #EF4444; /* red-500 */
+}
