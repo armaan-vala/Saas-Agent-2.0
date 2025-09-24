@@ -1,7 +1,7 @@
 from app import create_app
 from app.extensions import celery
 
-# Create a Flask app instance using the factory
+
 # This is necessary for the Celery tasks to have application context
 flask_app = create_app()
 

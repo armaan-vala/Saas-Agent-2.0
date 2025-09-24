@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.className = 'agent-card';
                 card.dataset.agentId = agent.id;
 
-                // YEH INNERHTML BADLA HAI
+                
                 card.innerHTML = `
                     <div class="card-header">
                         <div class="status-indicator ready"><span></span>Ready</div>
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load agents when the page is ready
     loadAgents();
 
-    // --- DELETE AGENT LOGIC ---
+    // DELETE AGENT LOGIC 
     agentGrid.addEventListener('click', async function(e) {
         const deleteButton = e.target.closest('.delete-btn');
         if (deleteButton) {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const agentCard = deleteButton.closest('.agent-card');
             const agentName = agentCard.querySelector('.agent-title').textContent;
 
-            // Simple confirmation
+            //  confirmation
             if (confirm(`Are you sure you want to delete the agent "${agentName}"? This action cannot be undone.`)) {
                 try {
                     const response = await fetch(`/api/agents/${agentId}`, {

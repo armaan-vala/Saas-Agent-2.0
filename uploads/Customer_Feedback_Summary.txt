@@ -1,9 +1,0 @@
-Customer Feedback Summary
-
-"Your product is great, but the documentation is hard to understand. Can you make it simpler?"
-
-"I was trying to find information about the pricing plans but couldn't locate it on the website."
-
-"The new chat feature is amazing! It answered my question in seconds."
-
-"How do I upload multiple documents at once? Is there a limit?"

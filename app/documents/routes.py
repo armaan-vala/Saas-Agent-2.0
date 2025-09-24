@@ -2,15 +2,17 @@ import os
 from flask import request, jsonify
 from werkzeug.utils import secure_filename
 from config import Config, basedir
-from app.extensions import db
+from app.extensions import db, celery
 from app.models import Agent, Document
-from app.tasks import process_document
+from app.tasks import process_document 
 from . import documents_bp
 
 UPLOAD_FOLDER = os.path.join(basedir, 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@documents_bp.route('/api/agents/<int:agent_id>/documents', methods=['POST'])
+
+@documents_bp.route('/agents/<int:agent_id>/documents', methods=['POST'])
+
 def upload_documents(agent_id):
     agent = Agent.query.get_or_404(agent_id)
 
@@ -38,7 +40,9 @@ def upload_documents(agent_id):
             db.session.add(new_doc)
             db.session.commit()
 
-            process_document.delay(new_doc.id)
+           
+            process_document.delay(new_doc.id, agent.id) 
+           
             document_ids.append(new_doc.id)
             print(f"Sent document {new_doc.id} for agent {agent_id} to background worker.")
 

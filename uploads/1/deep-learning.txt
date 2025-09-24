@@ -1,0 +1,11 @@
+Deep Learning is a subset of Machine Learning that focuses on neural networks with multiple layers. 
+These networks can automatically learn features from raw data such as images, text, and audio. 
+
+Key concepts:
+1. Neural Networks: Composed of layers of artificial neurons.
+2. Activation Functions: Such as ReLU, Sigmoid, and Tanh, which introduce non-linearity.
+3. Optimization: Gradient Descent and Adam are popular optimization algorithms.
+4. Overfitting: A common issue where the model memorizes training data instead of generalizing.
+5. Applications: Computer vision, natural language processing, and speech recognition.
+
+Deep Learning models require large datasets and high computational power but achieve state-of-the-art performance in many AI tasks.

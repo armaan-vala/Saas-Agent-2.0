@@ -1,0 +1,29 @@
+1. Flask is a lightweight Python web framework for building web applications.  
+It is simple, flexible, and easy to get started with.  
+
+2. Flask uses routes to map URLs to Python functions.  
+The @app.route decorator is used to define these routes.  
+
+3. You can return HTML, JSON, or plain text from a Flask route.  
+This makes it suitable for both web pages and APIs.  
+
+4. Flask supports templates using Jinja2 for dynamic HTML content.  
+Variables, loops, and conditionals can be embedded in HTML files.  
+
+5. You can handle forms and user input using Flask’s request object.  
+It allows access to GET and POST request data.  
+
+6. Flask can integrate with databases like SQLite, PostgreSQL, or MySQL.  
+ORMs like SQLAlchemy simplify database operations.  
+
+7. Blueprints in Flask help organize large applications into reusable components.  
+They allow modular structure and cleaner code.  
+
+8. Flask has extensions for adding features like authentication, mail, or migrations.  
+Popular ones include Flask-Login, Flask-Migrate, and Flask-Mail.  
+
+9. Debug mode in Flask shows detailed error messages and auto-reloads on code changes.  
+It is useful during development but should be off in production.  
+
+10. Flask is scalable and can be deployed using WSGI servers like Gunicorn or uWSGI.  
+It works well with cloud services like AWS, Heroku, or Docker containers.  

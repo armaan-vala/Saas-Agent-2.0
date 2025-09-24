@@ -1,20 +1,32 @@
-from app import create_app
+import os
+from app import create_app, db 
+from app.models import Agent, Document, Conversation, Message
+from flask_migrate import Migrate
 from app.extensions import celery
+from config import Config 
 
-# Create the Flask app instance
 app = create_app()
 
-# THIS IS THE OFFICIAL CELERY 5+ FIX
-# It tells Celery to load its configuration directly from our Config object,
-# and the 'namespace="CELERY"' part automatically handles the conversion
-# from uppercase (CELERY_BROKER_URL) to lowercase (broker_url).
-# This completely eliminates the "mixing keys" error.
-celery.config_from_object('config:Config', namespace='CELERY')
+migrate = Migrate(app, db) 
 
-# This ensures that tasks have access to the Flask application context
+
+celery.config_from_object(Config, namespace='CELERY') 
+
 class ContextTask(celery.Task):
     def __call__(self, *args, **kwargs):
         with app.app_context():
             return self.run(*args, **kwargs)
 
 celery.Task = ContextTask
+
+from app import tasks 
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'Agent': Agent, 'Document': Document, 'Conversation': Conversation, 'Message': Message}
+
+# If you have custom Flask commands, add them here
+# @app.cli.command()
+# def custom_command():
+#     """A custom command."""
+#     print("Hello from custom command!")
