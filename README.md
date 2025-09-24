@@ -2,7 +2,7 @@
 
 <p>
   <img src="assets/logo.png" alt="RAGNest Logo" width="200" height="200" style="vertical-align:middle"/>
-  <strong style="font-size: 32px; margin-left: 10px;">Query-Nest</strong>
+  
   
 </p>
 
